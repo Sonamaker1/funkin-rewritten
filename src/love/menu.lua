@@ -210,8 +210,6 @@ menu = {
 			
 			girlfriendTitle:draw()
 			
-			love.graphics.printf(graphics.imagePath("menu/title-bg"),-525,90,200, "right", nil, 1, 1)
-
 			love.graphics.printf("By HTV04\nv1.0.0 beta 3\n\nOriginal game by ninjamuffin99, PhantomArcade, kawaisprite, and evilsk8er, in association with Newgrounds", -525, 90, 450, "right", nil, 1, 1)
 			
 			graphics.setColor(1, 1, 0)
