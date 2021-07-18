@@ -89,10 +89,13 @@ local music = love.audio.newSource("music/menu/menu.ogg", "stream")
 logo.x, logo.y = -350, -125
 logo.sizeX, logo.sizeY = 1.25, 1.25
 
-girlfriendTitle.x, girlfriendTitle.y = 300*3/2, -205*3/2
+local gfTitleScale=0.80
+girlfriendTitle.x, girlfriendTitle.y = 300*(1/gfTitleScale), -160*(1/gfTitleScale)
 
 music:setLooping(true)
 
+local alpha=1.0
+local oldOption=1
 menu = {
 	load = function()
 		gameOver = false
@@ -127,7 +130,8 @@ menu = {
 		if not graphics.isFading then
 			if quickInputs.left then
 				audio.playSound(selectSound)
-				
+				alpha=1
+				oldOption=weekNum
 				if menuState == 2 then
 					songDifficulty = songDifficulty - 1
 					
@@ -149,7 +153,8 @@ menu = {
 				end
 			elseif quickInputs.right then
 				audio.playSound(selectSound)
-				
+				alpha=1
+				oldOption=weekNum
 				if menuState == 2 then
 					songDifficulty = songDifficulty + 1
 					
@@ -223,21 +228,21 @@ menu = {
 			logo:draw()
 			
 			love.graphics.push()
-			love.graphics.scale(cam.sizeX*2/3, cam.sizeY*2/3)
+			love.graphics.scale(cam.sizeX*gfTitleScale, cam.sizeY*gfTitleScale)
 			girlfriendTitle:draw()
 			love.graphics.pop()
 			
 			love.graphics.printf("\t\t\tBy HTV04\t\tv1.0.0 beta 3", -625, 90, 900, "left", nil, 1, 1)
-			love.graphics.printf("Original game by ninjamuffin99, PhantomArcade, kawaisprite, and evilsk8er, \nin association with Newgrounds", -625, 350, 1200, "left", nil, 1, 1)
+			love.graphics.printf("Original game by ninjamuffin99, PhantomArcade, \nkawaisprite, and evilsk8er, in association with Newgrounds", -625, 350, 1200, "left", nil, 1, 1)
 			
 			graphics.setColor(1, 1, 0)
 			if menuState == 2 then
 				if songDifficulty == 1 then
-					love.graphics.printf("Choose a difficulty: < Easy >", -640, 285, 853, "center", nil, 1.5, 1.5)
+					love.graphics.printf("Choose a difficulty:\n".. weekSongs[weekNum][songNum] .. " < Easy >", -640, 185, 853, "center", nil, 1.5, 1.5)
 				elseif songDifficulty == 2 then
-					love.graphics.printf("Choose a difficulty: < Normal >", -640, 285, 853, "center", nil, 1.5, 1.5)
+					love.graphics.printf("Choose a difficulty:\n".. weekSongs[weekNum][songNum] .. " < Normal >", -640, 185, 853, "center", nil, 1.5, 1.5)
 				elseif songDifficulty == 3 then
-					love.graphics.printf("Choose a difficulty: < Hard >", -640, 285, 853, "center", nil, 1.5, 1.5)
+					love.graphics.printf("Choose a difficulty:\n".. weekSongs[weekNum][songNum] .. " < Hard >", -640, 185, 853, "center", nil, 1.5, 1.5)
 				end
 			elseif menuState == 1 then
 				graphics.setColor(0, 1, 1)
@@ -265,7 +270,17 @@ menu = {
 				love.graphics.translate(200,-50)
 				graphics.setColor(1, 1, 0)
 				love.graphics.printf("Choose a week: \n < " .. weekIDs[weekNum] .. " >", -540, 265, 853, "left", nil, 1.5, 1.5)
+				if(alpha>0) then
+					alpha=alpha-0.1
+				end
+				love.graphics.setColor(1, 1, 1, alpha)
+				love.graphics.push()
+				love.graphics.translate(0,50-50*alpha)
+				storyMenuImages[oldOption]:draw()
+				love.graphics.pop()
+				graphics.setColor(1, 1, 0)
 				storyMenuImages[weekNum]:draw()
+
 				love.graphics.pop()
 			end
 			graphics.setColor(1, 1, 1)
