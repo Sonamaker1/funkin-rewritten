@@ -1,6 +1,8 @@
 # ![Logo](images/logo.png)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/HTV04/funkin-rewritten?style=flat-square) ![GitHub all releases](https://img.shields.io/github/downloads/HTV04/funkin-rewritten/total?style=flat-square) ![GitHub issues](https://img.shields.io/github/issues/HTV04/funkin-rewritten?style=flat-square) ![GitHub](https://img.shields.io/github/license/HTV04/funkin-rewritten?style=flat-square) ![Discord](https://img.shields.io/discord/852658576577003550?style=flat-square)
 
+This is a fork, go check the original lol:
+
 *Friday Night Funkin' Rewritten* is a rewrite of [*Friday Night Funkin'*](https://ninja-muffin24.itch.io/funkin) using [LÖVE](https://love2d.org/) for Windows, macOS, and Linux!
 
 *Friday Night Funkin' Rewritten* features:
