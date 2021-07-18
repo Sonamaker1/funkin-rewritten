@@ -22,13 +22,34 @@ local logo = Image(love.graphics.newImage(graphics.imagePath("menu/logo")))
 
 local girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
 
+-- 4 weeks, plus tutorial week = 5 weeks
+local maxNumberOfWeeks = 5 
+
+local storyMenuImages = { 
+	{}, --tutorial
+	{}, --Week 1
+	{}, --Week 2
+	{}, --Week 3
+	{}, --Week 4
+	{}, --Week 5 placeholder
+}
+
 local weekIDs = {
 	"Tutorial",
 	"Week 1",
 	"Week 2",
 	"Week 3",
-	"Week 4"
+	"Week 4",
+	--"Week 5"
 }
+
+for i = 1, maxNumberOfWeeks do
+	local o = Image(love.graphics.newImage(graphics.imagePath("menu/week" .. (i-1))))
+	o.x = 0
+	o.y = 300
+	storyMenuImages[i] = o
+end
+
 local weekSongs = {
 	{
 		"Tutorial"
@@ -51,7 +72,8 @@ local weekSongs = {
 		"Satin Panties",
 		"High",
 		"M.I.L.F"
-	}
+	},
+
 }
 local difficultyStrs = {
 	"-easy",
@@ -108,7 +130,7 @@ menu = {
 					weekNum = weekNum - 1
 					
 					if weekNum < 1 then
-						weekNum = 5
+						weekNum = maxNumberOfWeeks
 					end
 				end
 			elseif input:pressed("right") then
@@ -129,7 +151,7 @@ menu = {
 				elseif menuState == 0 then
 					weekNum = weekNum + 1
 					
-					if weekNum > 5 then
+					if weekNum > maxNumberOfWeeks then
 						weekNum = 1
 					end
 				end
@@ -188,6 +210,8 @@ menu = {
 			
 			girlfriendTitle:draw()
 			
+			love.graphics.printf(graphics.imagePath("menu/title-bg"),-525,90,200, "right", nil, 1, 1)
+
 			love.graphics.printf("By HTV04\nv1.0.0 beta 3\n\nOriginal game by ninjamuffin99, PhantomArcade, kawaisprite, and evilsk8er, in association with Newgrounds", -525, 90, 450, "right", nil, 1, 1)
 			
 			graphics.setColor(1, 1, 0)
@@ -206,7 +230,8 @@ menu = {
 					love.graphics.printf("Choose a song: < " .. weekSongs[weekNum][songNum] .. " >", -640, 285, 853, "center", nil, 1.5, 1.5)
 				end
 			elseif menuState == 0 then
-				love.graphics.printf("Choose a week: < " .. weekIDs[weekNum] .. " >", -640, 285, 853, "center", nil, 1.5, 1.5)
+				love.graphics.printf("Choose a week: \n < " .. weekIDs[weekNum] .. " >", -540, 265, 853, "left", nil, 1.5, 1.5)
+				storyMenuImages[weekNum]:draw()
 			end
 			graphics.setColor(1, 1, 1)
 			
