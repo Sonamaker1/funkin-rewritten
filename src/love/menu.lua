@@ -72,7 +72,7 @@ local weekSongs = {
 		"Satin Panties",
 		"High",
 		"M.I.L.F"
-	},
+	}
 
 }
 local difficultyStrs = {
@@ -102,6 +102,7 @@ menu = {
 		storyMode = false
 		
 		inGame = false
+		inOptions = false
 		inMenu = true
 		
 		songNum = 0
@@ -190,6 +191,7 @@ menu = {
 							songAppend = difficultyStrs[songDifficulty]
 							
 							inMenu = false
+							inOptions = false
 							inGame = true
 							
 							if songNum == 0 then
@@ -237,12 +239,18 @@ menu = {
 			
 			graphics.setColor(1, 1, 0)
 			if menuState == 2 then
+				local songName = ""
+				if(songNum == 0) then
+					songName = "Story Mode (Week " .. weekNum-1 .. ")"
+				else
+					songName = weekSongs[weekNum][songNum]
+				end
 				if songDifficulty == 1 then
-					love.graphics.printf("Choose a difficulty:\n".. weekSongs[weekNum][songNum] .. " < Easy >", -640, 185, 853, "center", nil, 1.5, 1.5)
+					love.graphics.printf("Choose a difficulty:\n" .. songName .. " < Easy >", -640, 185, 853, "center", nil, 1.5, 1.5)
 				elseif songDifficulty == 2 then
-					love.graphics.printf("Choose a difficulty:\n".. weekSongs[weekNum][songNum] .. " < Normal >", -640, 185, 853, "center", nil, 1.5, 1.5)
+					love.graphics.printf("Choose a difficulty:\n" .. songName .. " < Normal >", -640, 185, 853, "center", nil, 1.5, 1.5)
 				elseif songDifficulty == 3 then
-					love.graphics.printf("Choose a difficulty:\n".. weekSongs[weekNum][songNum] .. " < Hard >", -640, 185, 853, "center", nil, 1.5, 1.5)
+					love.graphics.printf("Choose a difficulty:\n" .. songName .. " < Hard >", -640, 185, 853, "center", nil, 1.5, 1.5)
 				end
 			elseif menuState == 1 then
 				graphics.setColor(0, 1, 1)
